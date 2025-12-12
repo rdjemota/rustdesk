@@ -186,9 +186,9 @@ pub fn translate_locale(name: String, locale: &str) -> String {
                 && !name.starts_with("upgrade_rustdesk_server_pro")
                 && name != "powered_by_me"
             {
-                let app_name = crate::get_app_name();
+                let app_name = "IPMon Remote Desktop"; //crate::get_app_name();
                 if !app_name.contains("RustDesk") {
-                    s = s.replace("RustDesk", &app_name);
+                    s = s.replace("RustDesk", app_name);
                 } else {
                     // https://github.com/rustdesk/rustdesk-server-pro/issues/845
                     // If app_name contains "RustDesk" (e.g., "RustDesk-Admin"), we need to avoid
@@ -198,9 +198,9 @@ pub fn translate_locale(name: String, locale: &str) -> String {
                     // app_name only contains alphanumeric and hyphen.
                     const PLACEHOLDER: &str = "#A-P-P-N-A-M-E#";
                     if !s.contains(PLACEHOLDER) {
-                        s = s.replace(&app_name, PLACEHOLDER);
-                        s = s.replace("RustDesk", &app_name);
-                        s = s.replace(PLACEHOLDER, &app_name);
+                        s = s.replace(app_name, PLACEHOLDER);   // (JEM)
+                        s = s.replace("RustDesk", app_name);    // (JEM)
+                        s = s.replace(PLACEHOLDER, app_name);   // (JEM)
                     } else {
                         // It's very unlikely to reach here.
                         // Skip replacement to avoid incorrect result.
