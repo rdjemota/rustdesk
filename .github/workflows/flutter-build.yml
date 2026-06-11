@@ -144,7 +144,6 @@ jobs:
         shell: bash
         run: |
           cargo update --precise 0.3.1 hostname
-          cargo update --precise 1.2.1 crc32fast
           cargo update --precise 1.5.0 whoami
 
       - name: Setup vcpkg with Github Actions binary cache
@@ -346,7 +345,6 @@ jobs:
         shell: bash
         run: |
           cargo update --precise 0.3.1 hostname
-          cargo update --precise 1.2.1 crc32fast
           cargo update --precise 1.5.0 whoami
 
       - name: Setup vcpkg with Github Actions binary cache
@@ -534,7 +532,6 @@ jobs:
       - name: Update Cargo.lock for new dependencies
         run: |
           cargo update --precise 0.3.1 hostname
-          cargo update --precise 1.2.1 crc32fast
           cargo update --precise 1.5.0 whoami
 
       - name: Restore bridge files
@@ -702,7 +699,6 @@ jobs:
       - name: Update Cargo.lock for new dependencies
         run: |
           cargo update --precise 0.3.1 hostname
-          cargo update --precise 1.2.1 crc32fast
           cargo update --precise 1.5.0 whoami
 
       - name: Restore bridge files
@@ -1006,7 +1002,6 @@ jobs:
       - name: Update Cargo.lock for new dependencies
         run: |
           cargo update --precise 0.3.1 hostname
-          cargo update --precise 1.2.1 crc32fast
           cargo update --precise 1.5.0 whoami
 
       - name: Build rustdesk lib
@@ -1531,7 +1526,6 @@ jobs:
             fi
             echo $JOBS
             cargo update --precise 0.3.1 hostname
-            cargo update --precise 1.2.1 crc32fast
             cargo update --precise 1.5.0 whoami
             cargo build --locked --lib $JOBS --features hwcodec,flutter,unix-file-copy-paste --release
             rm -rf target/release/deps target/release/build
@@ -1864,7 +1858,6 @@ jobs:
             python3 ./res/inline-sciter.py
             export CARGO_INCREMENTAL=0
             cargo update --precise 0.3.1 hostname
-            cargo update --precise 1.2.1 crc32fast
             cargo update --precise 1.5.0 whoami
             cargo build --locked --features inline${{ matrix.job.extra_features }} --release --bins --jobs 1
             # make debian package
