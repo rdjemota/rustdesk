@@ -140,6 +140,13 @@ jobs:
         with:
           prefix-key: ${{ matrix.job.os }}
 
+      - name: Update Cargo.lock for new dependencies
+        shell: bash
+        run: |
+          cargo update --precise 0.3.1 hostname
+          cargo update --precise 1.2.1 crc32fast
+          cargo update --precise 1.5.0 whoami
+
       - name: Setup vcpkg with Github Actions binary cache
         uses: lukka/run-vcpkg@b1a0dd252f06b9e25b3c022a9a03bd7a427fb6a2 # v11
         with:
@@ -335,6 +342,13 @@ jobs:
         with:
           prefix-key: ${{ matrix.job.os }}-sciter
 
+      - name: Update Cargo.lock for new dependencies
+        shell: bash
+        run: |
+          cargo update --precise 0.3.1 hostname
+          cargo update --precise 1.2.1 crc32fast
+          cargo update --precise 1.5.0 whoami
+
       - name: Setup vcpkg with Github Actions binary cache
         uses: lukka/run-vcpkg@b1a0dd252f06b9e25b3c022a9a03bd7a427fb6a2 # v11
         with:
@@ -517,6 +531,12 @@ jobs:
           prefix-key: rustdesk-lib-cache-ios
           key: ${{ matrix.job.target }}
 
+      - name: Update Cargo.lock for new dependencies
+        run: |
+          cargo update --precise 0.3.1 hostname
+          cargo update --precise 1.2.1 crc32fast
+          cargo update --precise 1.5.0 whoami
+
       - name: Restore bridge files
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
@@ -678,6 +698,12 @@ jobs:
       - uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
         with:
           prefix-key: ${{ matrix.job.os }}
+
+      - name: Update Cargo.lock for new dependencies
+        run: |
+          cargo update --precise 0.3.1 hostname
+          cargo update --precise 1.2.1 crc32fast
+          cargo update --precise 1.5.0 whoami
 
       - name: Restore bridge files
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -976,6 +1002,12 @@ jobs:
         with:
           prefix-key: rustdesk-lib-cache-android # TODO: drop '-android' part after caches are invalidated
           key: ${{ matrix.job.target }}
+
+      - name: Update Cargo.lock for new dependencies
+        run: |
+          cargo update --precise 0.3.1 hostname
+          cargo update --precise 1.2.1 crc32fast
+          cargo update --precise 1.5.0 whoami
 
       - name: Build rustdesk lib
         env:
@@ -1498,6 +1530,9 @@ jobs:
               export JOBS=""
             fi
             echo $JOBS
+            cargo update --precise 0.3.1 hostname
+            cargo update --precise 1.2.1 crc32fast
+            cargo update --precise 1.5.0 whoami
             cargo build --locked --lib $JOBS --features hwcodec,flutter,unix-file-copy-paste --release
             rm -rf target/release/deps target/release/build
             rm -rf ~/.cargo
@@ -1828,6 +1863,9 @@ jobs:
             # build rustdesk
             python3 ./res/inline-sciter.py
             export CARGO_INCREMENTAL=0
+            cargo update --precise 0.3.1 hostname
+            cargo update --precise 1.2.1 crc32fast
+            cargo update --precise 1.5.0 whoami
             cargo build --locked --features inline${{ matrix.job.extra_features }} --release --bins --jobs 1
             # make debian package
             mkdir -p ./Release
