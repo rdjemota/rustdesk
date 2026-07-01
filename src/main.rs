@@ -48,8 +48,8 @@ fn main() {
     );
     let matches = App::new("rustdesk")
         .version(crate::VERSION)
-        .author("Purslane Tech Pte. Ltd.<info@rustdesk.com>")
-        .about("RustDesk command line tool")
+        .author("SoftJem Tecnologia<contact@softjem.com.br>")
+        .about("IPMRmt command line tool")
         .args_from_usage(&args)
         .get_matches();
     use hbb_common::{config::LocalConfig, env_logger::*};
