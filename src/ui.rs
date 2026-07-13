@@ -84,7 +84,7 @@ pub fn start(args: &mut [String]) {
     let mut frame = sciter::WindowBuilder::main_window().create();
     #[cfg(windows)]
     allow_err!(sciter::set_options(sciter::RuntimeOptions::UxTheming(true)));
-    let app_title = "IPMon Remote Desktop";
+    let app_title = crate::client::translate("RustDesk".to_owned()); // (JEM)
     frame.set_title(&app_title); //(JEM)    
     #[cfg(target_os = "macos")]
     crate::platform::delegate::make_menubar(frame.get_host(), args.is_empty());

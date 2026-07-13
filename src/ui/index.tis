@@ -597,8 +597,7 @@ class MyIdMenu: Reactor.Component {
     }
 
     function showAbout() {
-        var name = "IPMon Remote Desktop";
-        msgbox("custom-nocancel-nook-hasclose", translate("About") + " " + name, "<div style='line-height: 2em'> \
+        msgbox("custom-nocancel-nook-hasclose", translate("RustDesk"), "<div style='line-height: 2em'> \
             <div>Version: " + handler.get_version() + " \
             <div>Fingerprint: " + handler.get_fingerprint() + " \
             <div .link .custom-event url='https://rustdesk.com'>" + "Vers&atilde;o customizada do RustDesk [1R]" + "</div> \
