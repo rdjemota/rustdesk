@@ -547,7 +547,7 @@ class MyIdMenu: Reactor.Component {
                 <li #allow-darktheme><span>{svg_checkmark}</span>{translate('Dark Theme')}</li>
                 <Languages />
                 {disable_installation ? "" : <li #allow-auto-update><span>{svg_checkmark}</span>{translate('Auto update')}</li>} 
-                <li #about>{translate('About')} {" IPMon Remote Desktop"}</li>
+                <li #about>{translate('RustDesk')}</li>
             </menu>
         </popup>;
     }

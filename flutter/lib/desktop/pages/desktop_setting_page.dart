@@ -2429,7 +2429,7 @@ class _AboutState extends State<_About> {
       final scrollController = ScrollController();
       return SingleChildScrollView(
         controller: scrollController,
-        child: _Card(title: translate('About IPMon Remote Desktop'), children: [
+        child: _Card(title: translate('RustDesk'), children: [   // (JEM)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

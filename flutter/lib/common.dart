@@ -3749,8 +3749,7 @@ Widget loadPowered(BuildContext context) {
       child: Opacity(
           opacity: 0.5,
           child: Text(
-            //translate("powered_by_me"),
-            "IPMon Remote Desktop",            
+            translate("RustDesk"),       //translate("powered_by_me"), (JEM)
             overflow: TextOverflow.clip,
             style: Theme.of(context)
                 .textTheme
