@@ -3225,7 +3225,7 @@ fn get_install_service_commands(path: &str, exe: &str) -> ResultType<String> {
 chcp 65001
 taskkill /F /IM {app_name}.exe{filter}
 {tray_shortcut_commands}
-rem -- copy /Y \"{tmp_path}\\{app_name} Tray.lnk\" \"%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\\" (JEM)
+rem -- copy /Y \"%RUSTDESK_OUTPUT_DIR%\\{app_name} Tray.lnk\" \"%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\\" (JEM)
 {import_config}
 {create_service}
     ",
