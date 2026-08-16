@@ -3377,13 +3377,13 @@ lazy_static::lazy_static! {
             msgtype: "info-nocancel",
             title: "xorg_not_found_title_tip",
             text: "xorg_not_found_text_tip",
-            link: LINK_HEADLESS_LINUX_SUPPORT,
+            link: "",   // LINK_HEADLESS_LINUX_SUPPORT, (JEM)
             try_again: true,
         }), (LOGIN_MSG_DESKTOP_NO_DESKTOP, LoginErrorMsgBox{
             msgtype: "info-nocancel",
             title: "no_desktop_title_tip",
             text: "no_desktop_text_tip",
-            link: LINK_HEADLESS_LINUX_SUPPORT,
+            link: "",   // LINK_HEADLESS_LINUX_SUPPORT, (JEM)
             try_again: true,
         }), (LOGIN_MSG_DESKTOP_SESSION_NOT_READY_PASSWORD_EMPTY, LoginErrorMsgBox{
             msgtype: "session-login-password",
