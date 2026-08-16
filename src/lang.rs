@@ -1,6 +1,34 @@
 use hbb_common::regex::Regex;
 use std::ops::Deref;
+// (JEM) 
+#[cfg(windows)]
+fn get_param20() -> Option<u32> {
+    use winreg::enums::*;
+    use winreg::RegKey;
 
+    let hklm = RegKey::predef(HKEY_LOCAL_MACHINE);
+    let key = hklm
+        .open_subkey_with_flags(r"Software\Agipmon", KEY_READ | KEY_WOW64_32KEY)
+        .ok()?;
+    key.get_value::<u32, _>("Param20").ok()
+}
+// (JEM)
+fn get_app() -> &'static str {
+    use std::sync::OnceLock;
+    static APP_NAME: OnceLock<String> = OnceLock::new();
+    APP_NAME
+        .get_or_init(|| {
+            let base = "IPMon Remote Desktop";
+            #[cfg(windows)]
+            {
+                if get_param20() == Some(2) {
+                    return base.replacen('P', "T", 1);
+                }
+            }
+            base.to_string()
+        })
+        .as_str()
+}
 mod ar;
 mod be;
 mod bg;
@@ -226,10 +254,10 @@ pub fn translate_locale(name: String, locale: &str) -> String {
             if s.contains("RustDesk")
                 && !name.starts_with("upgrade_rustdesk_server_pro")
                 && name != "powered_by_me"
-            {
-                let app_name = crate::get_app_name();
+            {				
+                let app_name = get_app(); //crate::get_app_name(); //JEM
                 if !app_name.contains("RustDesk") {
-                    s = s.replace("RustDesk", &app_name);
+                    s = s.replace("RustDesk", app_name);
                 } else {
                     // https://github.com/rustdesk/rustdesk-server-pro/issues/845
                     // If app_name contains "RustDesk" (e.g., "RustDesk-Admin"), we need to avoid
@@ -239,9 +267,9 @@ pub fn translate_locale(name: String, locale: &str) -> String {
                     // app_name only contains alphanumeric and hyphen.
                     const PLACEHOLDER: &str = "#A-P-P-N-A-M-E#";
                     if !s.contains(PLACEHOLDER) {
-                        s = s.replace(&app_name, PLACEHOLDER);
-                        s = s.replace("RustDesk", &app_name);
-                        s = s.replace(PLACEHOLDER, &app_name);
+                        s = s.replace(app_name, PLACEHOLDER);   // (JEM)
+                        s = s.replace("RustDesk", app_name);    // (JEM)
+                        s = s.replace(PLACEHOLDER, app_name);   // (JEM)
                     } else {
                         // It's very unlikely to reach here.
                         // Skip replacement to avoid incorrect result.
