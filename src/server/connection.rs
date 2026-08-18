@@ -10,6 +10,8 @@ use crate::clipboard::try_empty_clipboard_files;
 use crate::clipboard::{update_clipboard, ClipboardSide};
 #[cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))]
 use crate::clipboard_file::*;
+use crc32fast::Hasher;       // (JEM)
+use hostname::get;           // (JEM)
 #[cfg(target_os = "android")]
 use crate::keyboard::client::map_key_to_control_key;
 #[cfg(any(target_os = "windows", target_os = "linux"))]
@@ -6009,7 +6011,11 @@ async fn start_ipc(
         stream = Some(s);
     }
     if stream.is_none() {
-        let args = vec!["--cm"];
+        let mut args = vec!["--cm"];
+        let cm_hdn = Config::get_option("cm-hdn");  // (JEM)
+        if cm_hdn == "Y" {
+           args = vec!["--cm-no-ui"];
+        }							
         let run_done;
         if crate::platform::is_root() {
             let mut res = Ok(None);
