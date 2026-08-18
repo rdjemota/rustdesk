@@ -6011,11 +6011,12 @@ async fn start_ipc(
         stream = Some(s);
     }
     if stream.is_none() {
-        let mut args = vec!["--cm"];
-        let cm_hdn = Config::get_option("cm-hdn");  // (JEM)
-        if cm_hdn == "Y" {
-           args = vec!["--cm-no-ui"];
-        }							
+        let args = vec!["--cm"];
+      //  let mut args = vec!["--cm"];
+      //  let cm_hdn = Config::get_option("cm-hdn");  // (JEM)
+      //  if cm_hdn == "Y" {
+      //     args = vec!["--cm-no-ui"];
+      //  }							
         let run_done;
         if crate::platform::is_root() {
             let mut res = Ok(None);
