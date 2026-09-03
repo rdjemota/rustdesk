@@ -374,9 +374,8 @@ jobs:
       #    BASE_URL=${{ env.SIGN_BASE_URL }} SECRET_KEY=${{ secrets.SIGN_SECRET_KEY }} python3 res/job.py sign_files ./rustdesk/
 
       - name: Build self-extracted executable
-        if: false
         shell: bash
-        if: env.UPLOAD_ARTIFACT == 'true'
+        if: false && env.UPLOAD_ARTIFACT == 'true'        
         run: |
           sed -i '/dpiAware/d' res/manifest.xml
           pushd ./libs/portable
