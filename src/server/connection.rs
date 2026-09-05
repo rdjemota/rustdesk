@@ -2605,7 +2605,7 @@ impl Connection {
                 let PortForward {
                     host,
                     port,
-                    ..,           //special_fields: _,  (JEM)
+                    ..           //special_fields: _,  (JEM)
                 } = pf;
                 push(b"port_forward");
                 push(host.as_bytes());
