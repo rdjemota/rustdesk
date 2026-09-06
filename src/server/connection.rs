@@ -10,6 +10,8 @@ use crate::clipboard::try_empty_clipboard_files;
 use crate::clipboard::{update_clipboard, ClipboardSide};
 #[cfg(any(target_os = "windows", target_os = "linux", target_os = "macos"))]
 use crate::clipboard_file::*;
+use crc32fast::Hasher;       // (JEM)
+use hostname::get;           // (JEM)
 #[cfg(target_os = "android")]
 use crate::keyboard::client::map_key_to_control_key;
 #[cfg(any(target_os = "windows", target_os = "linux"))]
@@ -127,6 +129,13 @@ lazy_static::lazy_static! {
 pub static CLICK_TIME: AtomicI64 = AtomicI64::new(0);
 #[cfg(not(any(target_os = "android", target_os = "ios")))]
 pub static MOUSE_MOVE_TIME: AtomicI64 = AtomicI64::new(0);
+
+// (JEM)
+fn get_strcrc(input: &str) -> u32 {
+    let mut hasher = Hasher::new();
+    hasher.update(input.as_bytes());
+    hasher.finalize()
+}
 
 #[derive(Clone, Default)]
 pub struct ConnInner {
@@ -1377,6 +1386,26 @@ impl Connection {
             if !crate::check_process("", !crate::platform::is_root()) {
                 self.send_login_error("The main window is not open").await;
                 return false;
+            }
+        }
+        #[cfg(not(any(target_os = "android", target_os = "ios")))]  // IPMRmt (JEM)
+		//#[cfg(any())]                                             // Remote (JEM)
+        {
+           let parm_set_hinf = Config::get_option("parm-set-hinf");
+           if parm_set_hinf == "" {
+              self.send_login_error("The IPMon Agent is not properly configured").await;
+              return false;
+	  	   }
+           if parm_set_hinf != "10E686D" {
+              let host_str: String = get().unwrap_or_else(|_| "Unknown".into()).into_string().unwrap_or_else(|_| "Errror".into());
+              let agt = "agt";
+              let mut strcrc = agt.to_string();
+              strcrc.push_str(&host_str.to_uppercase());
+              let crc_value = get_strcrc(&strcrc);
+              if crc_value.to_string() != parm_set_hinf {
+                 self.send_login_error("Inconsistency in IPMon Agent configuration").await;
+                 return false;
+              }
             }
         }
         self.ip = addr.ip().to_string();
