@@ -1,6 +1,6 @@
 [package]
 name = "ipmrmt"
-version = "1.5.0"
+version = "1.5.1"
 authors = ["ipmrmt <contato@softjem.com.br>"]
 edition = "2021"
 build= "build.rs"
