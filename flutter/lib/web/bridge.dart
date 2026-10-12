@@ -869,7 +869,7 @@ class RustdeskImpl {
   }
 
   String mainGetAppNameSync({dynamic hint}) {
-    return js.context.callMethod('getByName', ['app-name']);
+    return 'IPMRmt'; // (JEM)
   }
 
   String mainUriPrefixSync({dynamic hint}) {
@@ -1674,7 +1674,7 @@ class RustdeskImpl {
 
   bool isCustomClient({dynamic hint}) {
     // is_custom_client() checks if app name is not "RustDesk"
-    return mainGetAppNameSync(hint: hint) != "RustDesk";
+    return true; // (JEM)
   }
 
   bool isDisableSettings({dynamic hint}) {
@@ -1694,11 +1694,11 @@ class RustdeskImpl {
 
   bool isDisableAccount({dynamic hint}) {
     // Checks HARD_SETTINGS["disable-account"] == "Y"
-    return mainGetHardOption(key: "disable-account", hint: hint) == "Y";
+   return true; // (JEM)
   }
 
   bool isDisableInstallation({dynamic hint}) {
-    return false;
+   return true; // (JEM)
   }
 
   Future<bool> isPresetPassword({dynamic hint}) {
