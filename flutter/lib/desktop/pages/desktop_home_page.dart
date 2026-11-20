@@ -428,7 +428,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
   }
 
   Widget buildHelpCards(String updateUrl) {
-    if (isWindows &&
+    if (0 > 1 && isWindows &&                 // (JEM)
         !bind.isDisableInstallation() &&
         bind.mainIsInstalled() &&
         !bind.isOutgoingOnly() &&
@@ -439,7 +439,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         await start_service(true);
       });
     }
-    if (!bind.isCustomClient() &&
+    if (0 > 1 && !bind.isCustomClient() &&    // (JEM)
         updateUrl.isNotEmpty &&
         !isCardClosed &&
         bind.mainUriPrefixSync().contains('rustdesk')) {
@@ -469,7 +469,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       return buildInstallCard("", systemError, "", () {});
     }
 
-    if (isWindows && !bind.isDisableInstallation()) {
+    if (0 > 1 && isWindows && !bind.isDisableInstallation()) {    // (JEM)
       if (!bind.mainIsInstalled()) {
         return buildInstallCard(
             "", bind.isOutgoingOnly() ? "" : "install_tip", "Install",
