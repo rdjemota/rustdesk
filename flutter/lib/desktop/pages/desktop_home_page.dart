@@ -428,7 +428,18 @@ class _DesktopHomePageState extends State<DesktopHomePage>
   }
 
   Widget buildHelpCards(String updateUrl) {
-    if (0 > 1 && !bind.isCustomClient() &&  // (JEM)
+    if (isWindows &&
+        !bind.isDisableInstallation() &&
+        bind.mainIsInstalled() &&
+        !bind.isOutgoingOnly() &&
+        !mainGetBoolOptionSync(kOptionStopService) &&
+        !bind.mainIsInstalledDaemon(prompt: false)) {
+      return buildInstallCard("", "install_daemon_tip", "Install", () async {
+        await rustDeskWinManager.closeAllSubWindows();
+        await start_service(true);
+      });
+    }
+    if (!bind.isCustomClient() &&
         updateUrl.isNotEmpty &&
         !isCardClosed &&
         bind.mainUriPrefixSync().contains('rustdesk')) {
@@ -458,7 +469,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       return buildInstallCard("", systemError, "", () {});
     }
 
-    if (0 > 1 && isWindows && !bind.isDisableInstallation()) { // (JEM)
+    if (isWindows && !bind.isDisableInstallation()) {
       if (!bind.mainIsInstalled()) {
         return buildInstallCard(
             "", bind.isOutgoingOnly() ? "" : "install_tip", "Install",
@@ -483,7 +494,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
           // macOS shows the request prompt only once per app, so later
           // presses would do nothing without opening the settings pane.
           launchUrl(Uri.parse(
-              'x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture'));          
+              'x-apple.systempreferences:com.apple.preference.security?Privacy_ScreenCapture'));
           watchIsCanScreenRecording = true;
         }, help: 'Help', link: translate("doc_mac_permission"));
       } else if (!isOutgoingOnly && !bind.mainIsProcessTrusted(prompt: false)) {
